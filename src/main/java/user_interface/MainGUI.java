@@ -5,7 +5,12 @@
  */
 package user_interface;
 
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.util.ArrayList;
+import java.awt.image.BufferedImage;
 import core.TimeManager;
+import core.ProcessingImage;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.time.LocalDateTime;
@@ -26,17 +31,18 @@ public class MainGUI extends javax.swing.JFrame {
     public static LocalDateTime local_time;
 
     boolean break_pressed = false;
-
+    private ArrayList<BufferedImage> images = core.ProcessingImage.readIcons();
+    private javax.swing.JLabel labelFriendlyShip;
     /**
      * Creates new form MainGUI
      */
     public MainGUI() {
         initComponents();
-        this.setSize(1280, 720);
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-
+        labelFriendlyShip = new JLabel(new ImageIcon(this.images.get(0)));
         btn_BREAK.setEnabled(false);
+        final Dimension size = labelFriendlyShip.getPreferredSize();
+        labelFriendlyShip.setBounds(150, 100, size.width, size.height);
+        this.panel_tda.add(labelFriendlyShip);
     }
 
     /**
@@ -145,11 +151,11 @@ public class MainGUI extends javax.swing.JFrame {
         panel_tda.setLayout(panel_tdaLayout);
         panel_tdaLayout.setHorizontalGroup(
             panel_tdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 713, Short.MAX_VALUE)
         );
         panel_tdaLayout.setVerticalGroup(
             panel_tdaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 551, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
