@@ -5,6 +5,7 @@
  */
 package core;
 
+import java.util.ArrayList;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -18,31 +19,27 @@ import javax.imageio.ImageIO;
  */
 public class ProcessingImage {
 
-    BufferedImage[] icons_file = new BufferedImage[50];
-    String path = "src/main/java/Icons/";
-
-    int count = 0;
-
-    public BufferedImage[] readIcons() {
+    public static ArrayList<BufferedImage> readIcons() {
+        
+        final String path = "src/main/java/Icons/";
+        return readIcons(path);
+    }
+    
+    public static ArrayList<BufferedImage> readIcons(String path ) {
 
         File f = new File(path);
         File[] files = f.listFiles();
-
-        if (files != null) {
-            for (int i = 0; i < files.length; i++) {
-                File file = files[i];
-                System.out.println("FILE: " + file);
-                count++;
-                String file_path = file.getAbsolutePath();
-                try {
-                    BufferedImage icon = ImageIO.read(new File(file_path));
-                } catch (IOException ex) {
-                    Logger.getLogger(ProcessingImage.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                //TODO: Add Buffered Image to an array and return that array.
+        ArrayList<BufferedImage> icons = new ArrayList<BufferedImage>();
+        for (File currentFile : files) {
+            System.out.println("FILE: " + currentFile);
+            final String filePath = currentFile.getAbsolutePath();
+            try {
+                BufferedImage icon = ImageIO.read(new File(filePath));
+                icons.add(icon);
+            } catch (IOException ex) {
+                Logger.getLogger(ProcessingImage.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-        return icons_file;
+        return icons;
     }
 }
